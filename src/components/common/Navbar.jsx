@@ -6,6 +6,7 @@ function Navbar() {
       <Link to="/">Inicio</Link>
       <Link to="/pokemon">Pokémon</Link>
       <Link to="/posts">Posts</Link>
+      <Link to="/todos"> Tareas </Link>
     </nav>
   );
 }
