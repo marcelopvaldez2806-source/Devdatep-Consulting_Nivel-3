@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { todoSchema } from "../../schemas/todoSchema";
 import { useUsers } from "../../hooks/useUsers";
+import { getAvailablePokemons } from "../../utils/pokemonStorage";
+
 
 function TodoForm({
   initialData = null,
@@ -11,6 +13,10 @@ function TodoForm({
   isPending = false,
   submitText = "Guardar",
 }) {
+  const pokemons = getAvailablePokemons(
+  initialData?.pokemonId
+);
+
   const {
     register,
     handleSubmit,
@@ -18,10 +24,10 @@ function TodoForm({
     reset,
   } = useForm({
     resolver: zodResolver(todoSchema),
-
     defaultValues: {
       title: "",
       userId: "",
+      pokemonId: "",
     },
   });
 
@@ -35,14 +41,16 @@ function TodoForm({
       reset({
         title: initialData.title ?? "",
         userId: String(initialData.userId ?? ""),
+        pokemonId: String(initialData.pokemonId ?? ""),
       });
     }
   }, [initialData, reset]);
 
   const handleFormSubmit = (data) => {
     onSubmit({
-      ...data,
+      title: data.title,
       userId: Number(data.userId),
+      pokemonId: Number(data.pokemonId),
       completed: initialData?.completed ?? false,
     });
   };
@@ -52,6 +60,7 @@ function TodoForm({
       onSubmit={handleSubmit(handleFormSubmit)}
       className="space-y-6"
     >
+      {/* TAREA */}
       <div>
         <label className="block font-semibold mb-2">
           Tarea
@@ -64,12 +73,13 @@ function TodoForm({
         />
 
         {errors.title && (
-          <p className="text-red-500 mt-1">
+          <p className="text-red-500 text-sm mt-1">
             {errors.title.message}
           </p>
         )}
       </div>
 
+      {/* USUARIO */}
       <div>
         <label className="block font-semibold mb-2">
           Usuario
@@ -78,10 +88,11 @@ function TodoForm({
         <select
           {...register("userId")}
           className="w-full border rounded-lg p-3"
+          disabled={usersLoading}
         >
           <option value="">
             {usersLoading
-              ? "Cargando..."
+              ? "Cargando usuarios..."
               : "Seleccione un usuario"}
           </option>
 
@@ -96,12 +107,50 @@ function TodoForm({
         </select>
 
         {errors.userId && (
-          <p className="text-red-500 mt-1">
+          <p className="text-red-500 text-sm mt-1">
             {errors.userId.message}
           </p>
         )}
       </div>
 
+      {/* POKÉMON */}
+      <div>
+        <label className="block font-semibold mb-2">
+          Pokémon asignado
+        </label>
+
+        <select
+          {...register("pokemonId")}
+          className="w-full border rounded-lg p-3"
+        >
+          <option value="">
+            Seleccione un Pokémon
+          </option>
+
+          {pokemons.map((pokemon) => (
+            <option
+              key={pokemon.id}
+              value={pokemon.id}
+            >
+              #{pokemon.id.toString().padStart(3, "0")} - {pokemon.name}
+            </option>
+          ))}
+        </select>
+
+        {errors.pokemonId && (
+          <p className="text-red-500 text-sm mt-1">
+            {errors.pokemonId.message}
+          </p>
+        )}
+
+        {pokemons.length === 0 && (
+          <p className="text-yellow-600 text-sm mt-2">
+            Primero entra a la sección Pokémon para cargar los 30 Pokémon en localStorage.
+          </p>
+        )}
+      </div>
+
+      {/* BOTÓN */}
       <button
         type="submit"
         disabled={isPending}
@@ -112,7 +161,9 @@ function TodoForm({
           py-3
           rounded-xl
           hover:bg-blue-700
+          transition
           disabled:bg-gray-400
+          disabled:cursor-not-allowed
         "
       >
         {isPending ? "Procesando..." : submitText}

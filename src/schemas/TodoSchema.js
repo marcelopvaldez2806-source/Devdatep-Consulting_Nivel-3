@@ -9,4 +9,8 @@ export const todoSchema = z.object({
   userId: z
     .string()
     .min(1, "Seleccione un usuario"),
+
+  pokemonId: z
+    .string()
+    .min(1, "Seleccione un Pokémon"),
 });
