@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { todoSchema } from "../../schemas/todoSchema";
+import { todoSchema } from "../../schemas/TodoSchema";
 import { useUsers } from "../../hooks/useUsers";
 import { getAvailablePokemons } from "../../utils/pokemonStorage";
 

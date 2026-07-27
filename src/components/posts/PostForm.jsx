@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { postSchema } from "../../schemas/postSchema";
+import { postSchema } from "../../schemas/PostSchema";
 import { useUsers } from "../../hooks/useUsers";
 
 function PostForm({
