@@ -7,7 +7,7 @@ import PokemonTypes from "../components/pokemon/PokemonTypes";
 import PokemonStats from "../components/pokemon/PokemonStats";
 import PokemonAbilities from "../components/pokemon/PokemonAbilities";
 import PokemonEvolution from "../components/pokemon/PokemonEvolution";
-import typeBackgrounds from "../utils/typeBackgrounds";
+import typeBackgrounds from "../utils/typebackgrounds";
 import PokemonDescription from "../components/pokemon/PokemonDescription";
 import PokemonSound from "../components/pokemon/PokemonSound";
 import BackButton from "../components/pokemon/BotonVolver";

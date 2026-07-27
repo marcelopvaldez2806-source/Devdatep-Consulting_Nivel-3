@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { usePokemon } from "../hooks/usePokemon";
 
-import SearchBar from "../components/common/SearchBar";
+import SearchBar from "../components/common/Searchbar";
 import PokemonGrid from "../components/pokemon/PokemonGrid";
 import PokemonSkeleton from "../components/pokemon/PokemonSkeleton";
 
