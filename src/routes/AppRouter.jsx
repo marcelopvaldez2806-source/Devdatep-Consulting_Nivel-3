@@ -17,7 +17,7 @@ import EditPost from "../pages/EditPost";
 
 import Todos from "../pages/Todos";
 import CreateTodo from "../pages/CreateTodo";
-import TodoDetail from "../pages/TodoDetail";
+import TodoDetail from "../pages/todoDetail";
 import EditTodo from "../pages/EditTodo";
 
 function AppRouter() {
